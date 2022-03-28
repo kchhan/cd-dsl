@@ -14,7 +14,7 @@ pipeline 'source-code-sync', {
     gate 'POST', {
       }
 
-    task 'jenkins', {
+    task 'run_pipeline', {
       actualParameter = [
         'config_name': '/projects/Default/pluginConfigurations/gcp-jenkins',
         'jenkins_depend_on_build_result': '0',
@@ -25,6 +25,19 @@ pipeline 'source-code-sync', {
       ]
       subpluginKey = 'EC-Jenkins'
       subprocedure = 'RunAndWait'
+      taskType = 'PLUGIN'
+    }
+
+    task 'pipeline_status', {
+      actualParameter = [
+        'build_number': '',
+        'config_name': '/projects/Default/pluginConfigurations/gcp-jenkins',
+        'job_name': 'flow-pipeline',
+        'result_outpp': '',
+        'wait_for_build': '1',
+      ]
+      subpluginKey = 'EC-Jenkins'
+      subprocedure = 'GetBuildStatus'
       taskType = 'PLUGIN'
     }
   }
